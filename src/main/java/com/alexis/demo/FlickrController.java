@@ -14,6 +14,10 @@ public class FlickrController {
     private static String URL_GET_PARIS = "https://api.flickr.com/services/rest/?method=flickr.photos.search" +
             "&api_key=41014e55b2a616bc84ba31aa9c8966cb&tags=paris&format=json&nojsoncallback=1";
 
+    // TEMPLATE FOR A URL FOR A FETCHED PHOTO !
+    // farm, server, id, secret
+    private static String photoUrlTemplate = "http://farm%d.staticflickr.com/%s/%s_%s.jpg";
+
 
     @RequestMapping("/stuff")
     ResponseEntity<String> displayStuff(){

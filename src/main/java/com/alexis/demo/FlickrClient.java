@@ -8,6 +8,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.Array;
+
 // Flickr API Class handles API stuff
 public class FlickrClient {
 
@@ -50,7 +52,6 @@ public class FlickrClient {
             JSONObject firstPhotoJsonObject = jsonPhotoArray.getJSONObject(0);
 
             // Create a new Flickr Object
-            // TODO Loop for all 10 photos
             Flickr flickr = new Flickr();
             flickr.setOwner(firstPhotoJsonObject.getString("owner"));
             flickr.setServer(firstPhotoJsonObject.getString("server"));
@@ -63,6 +64,42 @@ public class FlickrClient {
             flickr.setIsfamily(firstPhotoJsonObject.getInt("isfamily"));
 
             return  flickr;
+        }
+        catch (UnirestException ue){
+            System.out.println(ue);
+            return null;
+        }
+    }
+
+    public static Flickr[] getManyFlickrJsonPhoto(String URL){
+
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(URL).header("accept", "application/json").asJson();
+            JSONObject jsonObject = response.getBody().getObject();
+            // Here we can parse the JSON data and add things to our database
+            JSONObject jsonPhotosObject = jsonObject.getJSONObject("photos");
+            JSONArray jsonPhotoArray = jsonPhotosObject.getJSONArray("photo");
+            Flickr[] flickrArray = new Flickr[10];
+
+            for (int i = 0 ; i < 10 ; i++) {
+                JSONObject jsonPhotoObject = jsonPhotoArray.getJSONObject(i);
+
+                // Create a new Flickr Object
+                // Loop for all 10 photos
+                Flickr flickr = new Flickr();
+                flickr.setOwner(jsonPhotoObject.getString("owner"));
+                flickr.setServer(jsonPhotoObject.getString("server"));
+                flickr.setIspublic(jsonPhotoObject.getInt("ispublic"));
+                flickr.setIsfriend(jsonPhotoObject.getInt("isfriend"));
+                flickr.setFarm(jsonPhotoObject.getInt("farm"));
+                flickr.setId(jsonPhotoObject.getString("id"));
+                flickr.setSecret(jsonPhotoObject.getString("secret"));
+                flickr.setTitle(jsonPhotoObject.getString("title"));
+                flickr.setIsfamily(jsonPhotoObject.getInt("isfamily"));
+
+            }
+
+            return  flickrArray;
         }
         catch (UnirestException ue){
             System.out.println(ue);
