@@ -27,6 +27,7 @@ public class FlickrClient {
     // Some working examples:
     private static String photoUrl1 = "http://farm2.staticflickr.com/1955/30131952017_b057dd127b.jpg";
     private static String photoUrl2 = "http://farm2.staticflickr.com/1969/30132175597_be81e484a5.jpg";
+    private static String photoUrl3 = "http://farm2.staticflickr.com/1971/30165278177_23e6aa75a1.jpg";
 
     public FlickrClient(){}
 
@@ -79,6 +80,7 @@ public class FlickrClient {
             // Here we can parse the JSON data and add things to our database
             JSONObject jsonPhotosObject = jsonObject.getJSONObject("photos");
             JSONArray jsonPhotoArray = jsonPhotosObject.getJSONArray("photo");
+
             Flickr[] flickrArray = new Flickr[10];
 
             for (int i = 0 ; i < 10 ; i++) {

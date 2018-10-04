@@ -17,5 +17,8 @@ public class FlickrSpringDemoApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(FlickrSpringDemoApplication.class, args);
+
+		//String link = String.format("http://farm%d.staticflickr.com/%s/%s_%s.jpg", 2, "server", "id", "secret");
+        //System.out.println(link);
 	}
 }
