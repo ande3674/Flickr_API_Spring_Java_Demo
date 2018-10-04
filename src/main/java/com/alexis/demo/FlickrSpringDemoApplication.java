@@ -20,5 +20,9 @@ public class FlickrSpringDemoApplication {
 
 		//String link = String.format("http://farm%d.staticflickr.com/%s/%s_%s.jpg", 2, "server", "id", "secret");
         //System.out.println(link);
+        //String[] links = FlickrClient.searchByTag("paris france");
+        //for (int i = 0 ; i < links.length ; i++){
+          //  System.out.println(links[i]);
+        //}
 	}
 }
