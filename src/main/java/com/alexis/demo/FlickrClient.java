@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 // Flickr API Class handles API stuff
 public class FlickrClient {
@@ -33,9 +35,10 @@ public class FlickrClient {
 
     public FlickrClient(){}
 
-    public static String[] searchByTag(String tag){
+    public static ArrayList<String> searchByTag(String tag){
         // This is the array of links that will show the pictures
-        String[] urlArray = new String[10];
+        ArrayList<String> urlArrayList = new ArrayList<>();
+
         // Build the URL search string
         // if it is more than one word, we need to separate the words with plus signs (+)
         // Split the tag string into an array:
@@ -82,9 +85,9 @@ public class FlickrClient {
                     String secret = jsonPhotoObject.getString("secret");
                     // Build the display URL
                     String displayURL = String.format(photoUrlTemplate, farm, server, id, secret);
-                    urlArray[i] = displayURL;
+                    urlArrayList.add(displayURL);
                 }
-                return urlArray;
+                return urlArrayList;
             }
         }
         catch (UnirestException ue){
@@ -137,7 +140,7 @@ public class FlickrClient {
         }
     }
 
-    public static Flickr[] getManyFlickrJsonPhoto(String URL){
+    public static ArrayList<Flickr> getManyFlickrJsonPhoto(String URL){
 
         try {
             HttpResponse<JsonNode> response = Unirest.get(URL).header("accept", "application/json").asJson();
@@ -146,7 +149,7 @@ public class FlickrClient {
             JSONObject jsonPhotosObject = jsonObject.getJSONObject("photos");
             JSONArray jsonPhotoArray = jsonPhotosObject.getJSONArray("photo");
 
-            Flickr[] flickrArray = new Flickr[10];
+            ArrayList<Flickr> flickrList = new ArrayList<>();
 
             for (int i = 0 ; i < 10 ; i++) {
                 JSONObject jsonPhotoObject = jsonPhotoArray.getJSONObject(i);
@@ -164,9 +167,11 @@ public class FlickrClient {
                 flickr.setTitle(jsonPhotoObject.getString("title"));
                 flickr.setIsfamily(jsonPhotoObject.getInt("isfamily"));
 
+                flickrList.add(flickr);
+
             }
 
-            return  flickrArray;
+            return  flickrList;
         }
         catch (UnirestException ue){
             System.out.println(ue);
@@ -174,65 +179,4 @@ public class FlickrClient {
         }
     }
 
-    /*
-    public static Flickr getOneFlickrObject(){
-
-        try {
-            HttpResponse<JsonNode> response = Unirest.get(URL_GET_RECENT).header("accept", "application/json").asJson();
-            JSONObject jsonObject = response.getBody().getObject();
-            // Here we can parse the JSON data and add things to our database
-            JSONObject jsonPhotosObject = jsonObject.getJSONObject("photos");
-            JSONArray jsonPhotoArray = jsonPhotosObject.getJSONArray("photo");
-            JSONObject firstPhotoJsonObject = jsonPhotoArray.getJSONObject(0);
-
-            // Create a new Flickr Object
-            Flickr flickr = new Flickr();
-            flickr.setOwner(firstPhotoJsonObject.getString("owner"));
-            flickr.setServer(firstPhotoJsonObject.getString("server"));
-            flickr.setIspublic(firstPhotoJsonObject.getInt("ispublic"));
-            flickr.setIsfriend(firstPhotoJsonObject.getInt("isfriend"));
-            flickr.setFarm(firstPhotoJsonObject.getInt("farm"));
-            flickr.setId(firstPhotoJsonObject.getString("id"));
-            flickr.setSecret(firstPhotoJsonObject.getString("secret"));
-            flickr.setTitle(firstPhotoJsonObject.getString("title"));
-            flickr.setIsfamily(firstPhotoJsonObject.getInt("isfamily"));
-
-            return  flickr;
-        }
-        catch (UnirestException ue){
-            System.out.println(ue);
-            return null;
-        }
-    }
-
-    public static Flickr getOneParisFlickrObject(){
-
-        try {
-            HttpResponse<JsonNode> response = Unirest.get(URL_GET_PARIS).header("accept", "application/json").asJson();
-            JSONObject jsonObject = response.getBody().getObject();
-            // Here we can parse the JSON data and add things to our database
-            JSONObject jsonPhotosObject = jsonObject.getJSONObject("photos");
-            JSONArray jsonPhotoArray = jsonPhotosObject.getJSONArray("photo");
-            JSONObject firstPhotoJsonObject = jsonPhotoArray.getJSONObject(0);
-
-            // Create a new Flickr Object
-            Flickr flickr = new Flickr();
-            flickr.setOwner(firstPhotoJsonObject.getString("owner"));
-            flickr.setServer(firstPhotoJsonObject.getString("server"));
-            flickr.setIspublic(firstPhotoJsonObject.getInt("ispublic"));
-            flickr.setIsfriend(firstPhotoJsonObject.getInt("isfriend"));
-            flickr.setFarm(firstPhotoJsonObject.getInt("farm"));
-            flickr.setId(firstPhotoJsonObject.getString("id"));
-            flickr.setSecret(firstPhotoJsonObject.getString("secret"));
-            flickr.setTitle(firstPhotoJsonObject.getString("title"));
-            flickr.setIsfamily(firstPhotoJsonObject.getInt("isfamily"));
-
-            return  flickr;
-        }
-        catch (UnirestException ue){
-            System.out.println(ue);
-            return null;
-        }
-    }
-    */
 }
