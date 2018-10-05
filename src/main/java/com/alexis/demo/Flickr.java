@@ -3,6 +3,7 @@ package com.alexis.demo;
 // Standard Flickr Object class that uses the information returned from the API about a photo
 public class Flickr {
     // Fields returned by API can be class attributes/properties
+    private String name; // The name the user gives for the photo
     private String owner;
     private String server;
     private int ispublic;
@@ -15,6 +16,10 @@ public class Flickr {
 
     // Auto Generated Constructor, Getters & Setters, toString
     public Flickr() {}
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public String getOwner() {
         return owner;
@@ -91,7 +96,8 @@ public class Flickr {
     @Override
     public String toString() {
         return "Flickr{" +
-                "owner='" + owner + '\'' +
+                "name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
                 ", server='" + server + '\'' +
                 ", ispublic=" + ispublic +
                 ", isfriend=" + isfriend +

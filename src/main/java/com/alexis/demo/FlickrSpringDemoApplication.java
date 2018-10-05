@@ -20,11 +20,16 @@ public class FlickrSpringDemoApplication {
 
 		SpringApplication.run(FlickrSpringDemoApplication.class, args);
 
+
+        /*
+        * SOME TESTING STUFF - IGNORE FOR FINAL PROGRAM !
+        * */
+
 		//String link = String.format("http://farm%d.staticflickr.com/%s/%s_%s.jpg", 2, "server", "id", "secret");
         //System.out.println(link);
-        ArrayList<String> links = FlickrClient.searchByTag("paris france");
-        for (int i = 0 ; i < links.size() ; i++){
-            System.out.println(links.get(i));
-        }
+        //ArrayList<String> links = FlickrClient.searchByTag("paris france");
+        //for (int i = 0 ; i < links.size() ; i++){
+            //System.out.println(links.get(i));
+        //}
 	}
 }
