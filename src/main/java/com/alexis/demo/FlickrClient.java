@@ -1,6 +1,5 @@
 package com.alexis.demo;
-//import com.fasterxml.jackson.databind.JsonNode;
-//import com.sun.deploy.net.HttpResponse;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -97,7 +96,11 @@ public class FlickrClient {
     }
 
 
+    /*
 
+    This stuff probably won't be used but we will keep it here just in case
+
+    */
 
     public static String get(){
         try {
