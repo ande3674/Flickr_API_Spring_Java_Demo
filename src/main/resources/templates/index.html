@@ -1,18 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quick Flickr</title>
+    <meta charset="UTF-8"/>
+    <link th:href="@{css/styles.css}" rel="stylesheet" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" th:src="@{js/site.js}"></script>
 </head>
 <body>
 
-<h1>Flickr Photo Page</h1>
-<h2>Here are some of our pictures...</h2>
+    <nav>
+        <div class="nav-wrapper blue" >
+            <a href="#" class="brand-logo center">Quick Flickr</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">Search Flickr</a></li>
+                <li><a href="#">Find Saved Photos</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<img src="http://farm2.staticflickr.com/1909/43289625560_31f6309a12.jpg"></img>
-<img src="http://farm2.staticflickr.com/1955/30131952017_b057dd127b.jpg"></img>
-<img src="http://farm2.staticflickr.com/1969/30132175597_be81e484a5.jpg"></img>
-<img src="http://farm2.staticflickr.com/1971/30165278177_23e6aa75a1.jpg"></img>
+    <div class="container">
+        <p class="flow-text">Search for Flickr Images</p>
+        <div class="row">
+            <form class="col s6">
+                <div class="row">
+                    <div class="input-field col-6">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Search Flickr Images</label>
+                    </div>
+                    <a class="waves-effect waves-light btn red lighten-1">Find Images</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div>
+                <div class="card medium col m4">
+                    <div class="card-image z-depth-2">
+                        <img src="http://farm2.staticflickr.com/1909/43289625560_31f6309a12.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <p>Photo info can be displayed here</p>
+                        <a class="waves-effect waves-light btn red lighten-1">Save</a>
+                    </div>
+                </div>
+                <div class="card medium col m4">
+                    <div class="card-image z-depth-2">
+                        <img src="http://farm2.staticflickr.com/1955/30131952017_b057dd127b.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <p>Photo info can be displayed here</p>
+                        <a class="waves-effect waves-light btn red lighten-1">Save</a>
+                    </div>
+                </div>
+                <div class="card medium col m4">
+                    <div class="card-image z-depth-2">
+                        <img src="http://farm2.staticflickr.com/1969/30132175597_be81e484a5.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <p>Photo info can be displayed here</p>
+                        <a class="waves-effect waves-light btn red lighten-1">Save</a>
+                    </div>
+                </div>
+                <div class="card medium col m4">
+                    <div class="card-image z-depth-2">
+                        <img src="http://farm2.staticflickr.com/1971/30165278177_23e6aa75a1.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <p>Photo info can be displayed here</p>
+                        <a class="waves-effect waves-light btn red lighten-1">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="flow-text">Recently Saved Photos</p>
+    </div>
+
 
 
 
