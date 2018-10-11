@@ -24,16 +24,17 @@ public class FlickrDatabase {
     private static String TITLE_COLUMN = "title";
     private static String ISFAMILY_COLUMN = "isfamily";
 
-
     private static Statement statement = null;
     private static Connection conn = null;
 
     FlickrDatabase() {
 
+
+
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException cnfe) {
-            System.out.println("Can't instantiate driver class; check you have drives and classpath configured correctly?");
+            System.out.println("Can't instantiate driver class; check if you have drives and classpath configured correctly?");
             cnfe.printStackTrace();
             System.exit(-1);  //No driver? Need to fix before anything else will work. So quit the program
         }
@@ -76,7 +77,7 @@ public class FlickrDatabase {
 
 
     // TODO Figure out DB details and create all DB sql statements, update, select, update, etc methods
-    private void addRow(String name, String owner, String server, String ispublic, String isfriend, String farm, String id, String secret, String title, String isfamily){
+    private void addRow(String name, String owner, String server, int isPublic, int isFriend, int farm, String id, String secret, String title, int  isFamily){
 
         try {
 
@@ -84,8 +85,24 @@ public class FlickrDatabase {
             String insertPhotoSQL = String.format(insertPhotoSQLTemplate, TABLE, PHOTO_NAME_COLUMN, OWNER_COLUMN, SERVER_COLUMN,
                     ISPUBLIC_COLUMN, ISFRIEND_COLUMN, FARM_COLUMN, ID_COLUMN, SECRET_COLUMN, TITLE_COLUMN, ISFAMILY_COLUMN);
 
+            System.out.println("The SQL for the prepared statement is " + insertPhotoSQL);
+            PreparedStatement insertPhoto = conn.prepareStatement(insertPhotoSQL,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            statement.executeUpdate(insertPhotoSQL);
+            insertPhoto.setString(1, name);
+            insertPhoto.setString(2, owner);
+            insertPhoto.setString(3, server);
+            insertPhoto.setInt(4, isPublic);
+            insertPhoto.setInt(5, isFriend);
+            insertPhoto.setInt(6, farm);
+            insertPhoto.setString(7, id);
+            insertPhoto.setString(8, secret);
+            insertPhoto.setString(9, title);
+            insertPhoto.setInt(10, isFamily);
+            //For debugging - displays the actual SQL created in the PreparedStatement after the data has been set
+            System.out.println(insertPhoto.toString());
+
+            insertPhoto.executeQuery();
+
             System.out.println("Added photo");
 
 
@@ -95,4 +112,26 @@ public class FlickrDatabase {
     }
 
 
+    private void updateName(String newName, String oldName){
+
+        try {
+
+            String updatePhotoTemplate = "UPDATE PHOTOS SET % = ? WHERE % = ?";
+            String updatePhotoSQL = String.format(updatePhotoTemplate, PHOTO_NAME_COLUMN, PHOTO_NAME_COLUMN);
+
+            System.out.println("The SQL for the prepared statement is " + updatePhotoSQL);
+            PreparedStatement updatePhoto = conn.prepareStatement(updatePhotoSQL,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            updatePhoto.setString(1, newName);
+            updatePhoto.setString(2, oldName);
+
+
+            updatePhoto.executeUpdate();
+            System.out.println("Updated photo");
+
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
 }
